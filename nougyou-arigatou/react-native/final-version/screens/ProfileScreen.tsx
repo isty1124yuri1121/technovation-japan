@@ -18,7 +18,36 @@ export default function ProfileScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={farmer.Image} />
+      <View style={styles.row}>
+        <Image style={styles.image} source={farmer.Image} />
+        <View style={styles.column}>
+          <View style={styles.row}>
+            <Text>Name: </Text>
+            <Text>{farmer.Name}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text>Location: </Text>
+            <Text>{farmer.Location}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={styles.row}>
+        <TextInput
+          placeholder="Add a comment"
+          onChangeText={text => setText(text)}
+          defaultValue={text}
+        />
+        <Button
+          onPress={() => { dispatch(append({
+            Username: route.params.farmer.Username,
+            Content: text,
+            key: '004',
+          })) }}
+          title="Submit"
+        />
+      </View>
+
+      <Text>Comments:</Text>
       <FlatList
           data={comments}
           renderItem={({item}) => (
@@ -28,20 +57,7 @@ export default function ProfileScreen({ navigation, route }) {
           )}
         />
 
-      <TextInput
-        placeholder="Add a comment"
-        onChangeText={text => setText(text)}
-        defaultValue={text}
-      />
-      <Button
-        onPress={() => { dispatch(append({
-          Username: route.params.farmer.Username,
-          Content: text,
-          key: '004',
-        })) }}
-        title="Submit"
-      />
-    </View>
+     </View>
   );
 }
 
@@ -50,6 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 4,
   },
   image: {
     padding: 10,
@@ -64,5 +81,11 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  column: {
+    flexDirection: 'column',
+  },
+  row: {
+    flexDirection: 'row',
   },
 });

@@ -16,6 +16,8 @@ declare global {
 export type Farmer = {
   Name: string;
   Image: string;
+  Location: string;
+  Favorites: Array<string>;
   Username: string;
 };
 

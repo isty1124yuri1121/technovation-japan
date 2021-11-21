@@ -5,9 +5,27 @@ import type { Farmer } from './types';
 import Images from './assets/Images';
 
 const initialState: Array<Farmer> = [
-  {Name: 'Yuki Sano', Image: Images.Farmer1, Username: 'yusano'},
-  {Name: 'Yuichiro Watanabe', Image: Images.Farmer2, Username: 'yuichinabe'},
-  {Name: 'Megumi Yamada', Image: Images.Farmer3, Username: 'watermelon'},
+  {
+    Name: 'Yuki Sano',
+    Image: Images.Farmer1,
+    Username: 'yusano',
+    Location: 'Nagano', 
+    Favorites: [ 'cabbage', 'spinach']
+  },
+  {
+    Name: 'Yuichiro Watanabe',
+    Image: Images.Farmer2,
+    Username: 'yuichinabe',
+    Location: 'Niigata',
+    Favorites: [ 'rice', 'pumpkin']
+  },
+  {
+    Name: 'Megumi Yamada',
+    Image: Images.Farmer3,
+    Username: 'watermelon',
+    Location: 'Yamagata',
+    Favorites: [ 'garlic', 'onion']
+  },
 ];
 
 export const farmerSlice = createSlice({
