@@ -5,14 +5,14 @@ import { Button, FlatList, Image, Platform, StyleSheet, TextInput } from 'react-
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 
-import { append } from '../commentSlice';
+import { update } from '../farmerSlice';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function ProfileScreen({ navigation, route }) {
-  const [text, setText] = useState('');
+export default function FarmerProfileScreen({ navigation, route }) {
   const farmer = useSelector((state) => state.farmer)
     .filter((farmer) => farmer.Username == route.params.farmer)[0];
+  const [text, setText] = useState(farmer);
   const comments = useSelector((state) => state.comment.comments)
     .filter(comment => comment.Username == farmer.Username);
   const dispatch = useDispatch();
@@ -24,7 +24,14 @@ export default function ProfileScreen({ navigation, route }) {
         <View style={styles.column}>
           <View style={styles.row}>
             <Text>Name: </Text>
-            <Text>{farmer.Name}</Text>
+            <TextInput
+              placeholder="new name"
+              onChangeText={text => setText({
+                Name: text,
+                ...farmer
+              })}
+              defaultValue={farmer.Name}
+            />
           </View>
           <View style={styles.row}>
             <Text>Location: </Text>
@@ -32,19 +39,11 @@ export default function ProfileScreen({ navigation, route }) {
           </View>
         </View>
       </View>
+
       <View style={styles.row}>
-        <TextInput
-          placeholder="Add a comment"
-          onChangeText={text => setText(text)}
-          defaultValue={text}
-        />
         <Button
-          onPress={() => { dispatch(append({
-            Username: farmer.Username,
-            Content: text,
-            key: uuidv4(),
-          })) }}
-          title="Submit"
+          onPress={() => { dispatch(update(farmer.Username, farmer)) }}
+          title="Update Details"
         />
       </View>
 

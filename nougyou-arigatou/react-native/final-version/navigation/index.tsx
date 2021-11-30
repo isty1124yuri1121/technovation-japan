@@ -8,8 +8,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
+import InitialScreen from '../screens/InitialScreen';
+import LoginScreen from '../screens/LoginScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import FarmerProfileScreen from '../screens/FarmerProfileScreen';
 import FarmerListScreen from '../screens/FarmerListScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
@@ -45,6 +48,14 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
       <Stack.Screen
+        name="Initial"
+        component={InitialScreen}
+        options={{ headerShown: true, title: 'Who Are You?' }} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: true, title: 'Login' }} />
+      <Stack.Screen
         name="Root"
         component={FarmerListScreen}
         options={{ headerShown: true, title: 'Farmers' }} />
@@ -52,6 +63,10 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: 'Oops!' }} />
+      <Stack.Screen
+        name="Farmer Profile"
+        component={FarmerProfileScreen}
+        options={ ({ route }) => ({ headerShown: true, title: route.params.name }) } />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}

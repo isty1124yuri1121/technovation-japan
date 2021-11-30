@@ -35,9 +35,19 @@ export const farmerSlice = createSlice({
     append: (state, farmer) => {
       state.append(farmer);
     },
+    update: (state, username, farmer) => {
+      for (var i =0; i < state.length; ++i) {
+        if (state[i].Username == username) {
+          state[i] = {
+            ...farmer,
+            ...state[i],
+          }
+        }
+      }
+    },
   },
 });
 
-export const { append } = farmerSlice.actions;
+export const { append, update } = farmerSlice.actions;
 
 export default farmerSlice.reducer;
