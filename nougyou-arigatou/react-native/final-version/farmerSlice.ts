@@ -33,7 +33,8 @@ export const farmerSlice = createSlice({
   initialState,
   reducers: {
     append: (state, farmer) => {
-      state.append(farmer);
+      console.log(farmer);
+      state.push(farmer.payload);
     },
     update: (state, username, farmer) => {
       for (var i =0; i < state.length; ++i) {

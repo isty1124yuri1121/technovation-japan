@@ -19,6 +19,12 @@ export default function LoginScreen({ navigation }) {
           title="Login"
         />
       </View>
+      <View style={styles.row}>
+        <Button
+          onPress={() => navigation.navigate("New Farmer")}
+          title="New Farmer"
+        />
+      </View>
     </View>
   );
 }
