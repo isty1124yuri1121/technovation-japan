@@ -13,7 +13,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
   const farmer = useSelector((state) => state.farmer)
     .filter((farmer) => farmer.Username == route.params.farmer)[0];
   const [text, setText] = useState(farmer);
-  const comments = useSelector((state) => state.comment.comments)
+  const comments = useSelector((state) => state.comment)
     .filter(comment => comment.Username == farmer.Username);
   const dispatch = useDispatch();
 
