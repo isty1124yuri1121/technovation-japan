@@ -9,6 +9,9 @@ export const farmerSlice = createSlice({
   name: 'farmer',
   initialState,
   reducers: {
+    init: (state, farmer) => {
+      state.push(farmer.payload);
+    },
     append: (state, farmer) => {
       state.push(farmer.payload);
     },
@@ -25,6 +28,6 @@ export const farmerSlice = createSlice({
   },
 });
 
-export const { append, update } = farmerSlice.actions;
+export const { init, append, update } = farmerSlice.actions;
 
 export default farmerSlice.reducer;

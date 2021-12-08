@@ -13,7 +13,6 @@ import { Text, View } from './Themed';
 
 export default function FarmerList({ }: { }) {
   const farmers = useSelector((state) => state.farmer);
-  console.log(farmers);
   const navigation = useNavigation();
 
   return (

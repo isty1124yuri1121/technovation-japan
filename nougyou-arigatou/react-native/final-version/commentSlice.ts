@@ -10,12 +10,15 @@ export const commentSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
+    init: (state, comment) => {
+      state.push(comment.payload);
+    },
     append: (state, comment) => {
       state.push(comment.payload);
     },
   },
 });
 
-export const { append } = commentSlice.actions;
+export const { init, append } = commentSlice.actions;
 
 export default commentSlice.reducer;
