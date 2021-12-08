@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import Airtable from 'airtable';
 
+import base from './Datastore';
 import Images from './assets/Images';
 import commentReducer from './commentSlice';
 import { init as commentInit } from './commentSlice';
@@ -21,8 +21,6 @@ const store = configureStore({
 });
 
 // Read the initial set of farmers from Airtable.
-const table =  new Airtable({apiKey : process.env.AIRTABLE_API_KEY})
-const base = table.base('appwPdl5QXUtRh8Rz');
 base('Table 1').select({}).eachPage(
   function page(records, fetchNextPage) {
     records.map(r => {

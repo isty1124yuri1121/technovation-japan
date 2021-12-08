@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store'
 
+import base from './Datastore';
 import type { Comment } from './types';
 
 
@@ -13,8 +14,19 @@ export const commentSlice = createSlice({
     init: (state, comment) => {
       state.push(comment.payload);
     },
-    append: (state, comment) => {
-      state.push(comment.payload);
+    append: (state, content) => {
+      const comment = content.payload;
+      state.push(comment);
+      base('Comments').create([
+        {
+          "fields": {
+            "Farmer": comment.Username,
+            "Comment": comment.Content,
+            "uuid": comment.key
+          }
+        }],
+        function(err, records) {
+        });
     },
   },
 });
