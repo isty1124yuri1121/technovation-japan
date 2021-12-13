@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Image, StyleSheet, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import React, { useState } from 'react';
+import { Button, Image, StyleSheet, TextInput } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigation } from '@react-navigation/native';
 
 import { append } from '../farmerSlice';
 import { Text, View } from '../components/Themed';
+
+async function uploadImageAsync(uri) {
+  const blob = await new Promise( (resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function(e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+
+  const fileRef = ref(getStorage(), uuidv4());
+  const result = await uploadBytes(fileRef, blob);
+  return await getDownloadURL(fileRef);
+}
 
 export default function FarmerProfileScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -21,8 +43,13 @@ export default function FarmerProfileScreen({ navigation, route }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
     });
-
-    console.log(result);
+    const farmerImageUrl = await uploadImageAsync(result.uri);
+    // We first need to link this up with Firebase to save the file and then
+    // Airtable copies the image from Firebase.
+    setFarmer({
+      ...farmer,
+      Image: farmerImageUrl
+    })
   };
 
   return (
