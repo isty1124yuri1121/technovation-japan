@@ -36,7 +36,6 @@ base('Table 1').select({}).eachPage(
     fetchNextPage();
   },
   function done(err) {
-    console.log(err);
   });
 
 base('Comments').select({}).eachPage(

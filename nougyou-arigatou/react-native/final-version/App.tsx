@@ -5,6 +5,8 @@ import React from 'react';
 import { Provider }  from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { theme } from './theme';
+import ThemeContext from './ThemeContext';
 import store from "./Store";
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -55,10 +57,12 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <ThemeContext.Provider value={theme}>
+        <SafeAreaProvider>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+        </SafeAreaProvider>
+      </ThemeContext.Provider>
     </Provider>
   );
 }

@@ -5,9 +5,10 @@
  */
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { ColorSchemeName } from 'react-native';
 
+import ThemeContext from '../ThemeContext';
 import InitialScreen from '../screens/InitialScreen';
 import LoginScreen from '../screens/LoginScreen';
 import NewFarmerScreen from '../screens/NewFarmerScreen';
@@ -18,22 +19,15 @@ import FarmerListScreen from '../screens/FarmerListScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-const FarmerTheme = {
-  dark: false,
-  colors: {
-    primary: 'rgb(76, 168, 186)',
-    background: 'rgb(255, 255, 255)',
-    card: 'rgb(122, 168, 76)',
-    text: 'rgb(255, 255, 255)',
-    border: 'rgb(76, 186, 94)',
-  },
-};
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const theme = useContext(ThemeContext);
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={FarmerTheme}>
+      theme={{
+        dark: false,
+        colors: theme.colors,
+      }}>
       <RootNavigator />
     </NavigationContainer>
   );
