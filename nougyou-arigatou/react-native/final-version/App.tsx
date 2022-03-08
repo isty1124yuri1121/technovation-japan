@@ -1,10 +1,10 @@
 import Airtable from 'airtable'
 import { StatusBar } from 'expo-status-bar';
-import { initializeApp } from 'firebase/app';
 import React from 'react';
 import { Provider }  from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { app } from './storage/firebase';
 import { theme } from './theme';
 import ThemeContext from './ThemeContext';
 import store from "./Store";
@@ -34,19 +34,6 @@ async function readInitialState() {
   .then(r => {console.log(r)});
   return farmers;
 }
-
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID
-};
-
-initializeApp(firebaseConfig);
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

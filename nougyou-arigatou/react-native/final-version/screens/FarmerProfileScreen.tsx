@@ -21,6 +21,9 @@ export default function FarmerProfileScreen({ navigation, route }) {
     <View style={styles.container}>
       <View style={styles.row}>
         <Image style={styles.image} source={farmer.Image} />
+      </View>
+
+      <View style={styles.row}>
         <View style={styles.column}>
           <View style={styles.row}>
             <Text>Name: </Text>
@@ -33,6 +36,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
               defaultValue={farmer.Name}
             />
           </View>
+
           <View style={styles.row}>
             <Text>Location: </Text>
             <Text>{farmer.Location}</Text>
@@ -70,8 +74,8 @@ const styles = StyleSheet.create({
   },
   image: {
     padding: 10,
-    height: 300,
-    width: 300,
+    height: 200,
+    width: 200,
   },
   title: {
     fontSize: 20,

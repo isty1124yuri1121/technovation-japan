@@ -1,11 +1,13 @@
 import * as ImagePicker from 'expo-image-picker';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { updateProfile } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Button, Image, StyleSheet, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 
+import { auth } from '../storage/firebase';
 import { append } from '../farmerSlice';
 import { Text, View } from '../components/Themed';
 
@@ -30,6 +32,7 @@ async function uploadImageAsync(uri) {
 }
 
 export default function FarmerProfileScreen({ navigation, route }) {
+  const user = auth.currentUser;
   const dispatch = useDispatch();
   const [farmer, setFarmer] = useState({
     Name: '',
@@ -37,6 +40,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
     Username: '',
     Location: '', 
     Favorites: [ ],
+    Email: user.providerData[0].email,
   });
 
   const onImagePress = async() => {
@@ -52,13 +56,28 @@ export default function FarmerProfileScreen({ navigation, route }) {
     })
   };
 
+  const saveProfile = async () => { 
+    await updateProfile(user, {
+      displayName: farmer.Username,
+      photoURL: farmer.Image,
+    });
+    dispatch(append(farmer));
+    navigation.navigate("Farmer Profile", { farmer: farmer.Username });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.column}>
           <View style={styles.row}>
+            <Text>Email: </Text>
+            <Text>{user.providerData[0].email}</Text>
+          </View>
+
+          <View style={styles.row}>
             <Text>Username: </Text>
             <TextInput
+              autoCapitalize='none'
               placeholder="new username"
               onChangeText={text => setFarmer({
                 ...farmer,
@@ -115,10 +134,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
 
       <View style={styles.row}>
         <Button
-          onPress={() => { 
-            dispatch(append(farmer));
-            navigation.navigate("Farmer Profile", { farmer: farmer.Username });
-          }}
+          onPress={saveProfile}
           title="Save"
         />
       </View>
