@@ -103,7 +103,8 @@ input box should follow a common set of guidelines.  Theme and Styling makes
 that consistent throughout an application.  While developing your brand themes,
 you'll need a rapid way to prototype and test how everything looks too.
 
-This part needs to be figured out.
+We use a custom [React Context](https://reactjs.org/docs/context.html) to
+distribute theme values that any component can access.
 
 ### User Authentication
 
@@ -113,7 +114,8 @@ users.  This requires authentication and new user sign up flows.  There's many
 solutions but also a few common well tested patterns.   Trying it once makes it
 easier for future applications.
 
-This part needs to be figured out or made more robust.
+We use [Firebase Authentication](https://firebase.google.com/docs/auth) for a
+simple Email and Password authentication flow.
 
 ### Working with Cloud Storage
 
