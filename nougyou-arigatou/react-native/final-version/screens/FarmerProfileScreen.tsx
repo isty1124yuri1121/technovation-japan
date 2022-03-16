@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, FlatList, Image, Platform, StyleSheet, TextInput } from 'react-native';
+import { Button, FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 
@@ -19,13 +19,12 @@ export default function FarmerProfileScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <Image style={styles.image} source={farmer.Image} />
-      </View>
 
-      <View style={styles.row}>
-        <View style={styles.column}>
-          <View style={styles.row}>
+      <View style={styles.detailsContainer}>
+        <Image style={styles.image} source={farmer.Image} />
+
+        <View style={styles.detailsContent}>
+          <View style={styles.detailInput}>
             <Text>Name: </Text>
             <TextInput
               placeholder="new name"
@@ -33,64 +32,113 @@ export default function FarmerProfileScreen({ navigation, route }) {
                 Name: text,
                 ...farmer
               })}
+              style={styles.input}
               defaultValue={farmer.Name}
             />
           </View>
 
-          <View style={styles.row}>
+          <View style={styles.detailInput}>
             <Text>Location: </Text>
-            <Text>{farmer.Location}</Text>
+            <TextInput
+              placeholder="new location"
+              onChangeText={text => setText({
+                Location: text,
+                ...farmer
+              })}
+              style={styles.input}
+              defaultValue={farmer.Location}
+            />
           </View>
+
         </View>
       </View>
 
-      <View style={styles.row}>
+      <View style={styles.actionContainer}>
         <Button
           onPress={() => { dispatch(update(farmer.Username, farmer)) }}
           title="Update Details"
         />
+        <TouchableOpacity
+          style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       </View>
 
-      <Text>Comments:</Text>
-      <FlatList
-          keyExtractor={item => item.Key}
-          data={comments}
-          renderItem={({item}) => (
-        <View>
-          <Text>{item.Content}</Text>
-        </View>
-          )}
-        />
-
+      <View style={styles.commentsContainer}>
+        <Text>Comments:</Text>
+        <FlatList
+            keyExtractor={item => item.Key}
+            data={comments}
+            renderItem={({item}) => (
+          <View>
+            <Text>{item.Content}</Text>
+          </View>
+            )}
+          />
+       </View>
      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: 4,
+  },
+  detailsContainer: {
+    width: '100%',
+    padding: 8,
+    flexDirection: 'row',
   },
   image: {
     padding: 10,
-    height: 200,
-    width: 200,
+    height: 150,
+    width: 150,
+  },
+  detailsContent: {
+    paddingLeft: 4,
+    width: '50%',
+  },
+  input: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+    borderWidth: 2,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  row: {
+  actionContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  commentsContainer: {
+    height: '40%',
+    width: '100%',
+    padding: 8,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  button: {
+    backgroundColor: '#0782f9',
+    color: '#000',
+    width: '50%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    margin: 8,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
