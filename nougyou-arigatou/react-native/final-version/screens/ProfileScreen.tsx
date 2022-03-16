@@ -51,6 +51,7 @@ export default function ProfileScreen({ navigation, route }) {
       <Text>Comments:</Text>
       <FlatList
           data={comments}
+          keyExtractor={item => item.Key}
           renderItem={({item}) => (
         <View>
           <Text>{item.Content}</Text>

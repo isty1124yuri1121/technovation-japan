@@ -53,6 +53,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
 
       <Text>Comments:</Text>
       <FlatList
+          keyExtractor={item => item.Key}
           data={comments}
           renderItem={({item}) => (
         <View>
