@@ -13,7 +13,7 @@ const emojiMap = {
 };
 
 export default function FarmerListItem({ farmer }: { farmer: Farmer }) {
-  const favorites = farmer.Favorites
+  const favorites = farmer.Favorites.split(',')
     .map( (fave) => emojiMap[fave] || fave )
     .join(' ');
   return (

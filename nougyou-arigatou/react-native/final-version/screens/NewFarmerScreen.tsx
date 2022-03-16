@@ -11,27 +11,7 @@ import { auth } from '../storage/firebase';
 import { append } from '../farmerSlice';
 import { Text, View } from '../components/Themed';
 
-async function uploadImageAsync(uri) {
-  const blob = await new Promise( (resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      resolve(xhr.response);
-    };
-    xhr.onerror = function(e) {
-      console.log(e);
-      reject(new TypeError("Network request failed"));
-    };
-    xhr.responseType = "blob";
-    xhr.open("GET", uri, true);
-    xhr.send(null);
-  });
-
-  const fileRef = ref(getStorage(), uuidv4());
-  const result = await uploadBytes(fileRef, blob);
-  return await getDownloadURL(fileRef);
-}
-
-export default function FarmerProfileScreen({ navigation, route }) {
+export default function NewFarmerScreen({ navigation, route }) {
   const user = auth.currentUser;
   const dispatch = useDispatch();
   const [farmer, setFarmer] = useState({
@@ -39,20 +19,28 @@ export default function FarmerProfileScreen({ navigation, route }) {
     Image: '',
     Username: '',
     Location: '', 
-    Favorites: [ ],
+    Favorites: '',
     Email: user.providerData[0].email,
   });
 
-  const onImagePress = async() => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+  const onImagePress = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
     });
-    const farmerImageUrl = await uploadImageAsync(result.uri);
-    // We first need to link this up with Firebase to save the file and then
-    // Airtable copies the image from Firebase.
+    if (result.cancelled) {
+      return;
+    }
+    // Convert the image to a byte array.
+    const image = await fetch(result.ur);
+    const bytes = await image.blob();
+
+    const ref = ref(getStorage(), uuidv4());
+    await uploadBytes(ref, bytes);
+    const farmerImageUrl = await getDownloadURL(ref);
+
     setFarmer({
       ...farmer,
-      Image: farmerImageUrl
+      Image: farmerImageUrl 
     })
   };
 
@@ -117,7 +105,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
               placeholder="new favorites"
               onChangeText={text => setFarmer({
                 ...farmer,
-                Favorites: text.split(',').map(t => t.trim())
+                Favorites: text,
               })}
               defaultValue={farmer.Favorites}
             />

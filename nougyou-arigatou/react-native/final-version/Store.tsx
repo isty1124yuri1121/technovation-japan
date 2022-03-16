@@ -25,18 +25,19 @@ base('Table 1').select({}).eachPage(
   function page(records, fetchNextPage) {
     records.map(r => {
       return {
-      Name: r.get('Name'),
-      Image: {uri: r.get('Image')[0].url},
-      Username: r.get('Username'),
-      Location: r.get('Location'),
-      Favorites: r.get('Favorites').split(',').map(f => f.trim()),
-    };
+        id: r.id,
+        Name: r.get('Name'),
+        Image: {uri: r.get('Image')},
+        Username: r.get('Username'),
+        Location: r.get('Location'),
+        Favorites: r.get('Favorites'),
+      };
     })
       .forEach(r => store.dispatch(farmerInit(r)));
     fetchNextPage();
   },
   function done(err) {
-  });
+});
 
 base('Comments').select({}).eachPage(
   function page(records, fetchNextPage) {

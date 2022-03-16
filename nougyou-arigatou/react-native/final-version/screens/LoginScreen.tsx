@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth } from '../storage/firebase';
 import { Text, View } from '../components/Themed';
@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }) {
       }
 
       if (!user.providerData[0].displayName) {
-        navigation.navigate("New Farmer");
+        navigation.navigate("Farmer Profile");
         return;
       }
       navigation.navigate(
@@ -26,11 +26,16 @@ export default function LoginScreen({ navigation }) {
 
     return onUnmount;
   });
+  const handleSignin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredentials => {
+      })
+      .catch(error => alert(error.message));
+  };
 
   const handleSignup = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
-        console.log(userCredentials.user);
       })
       .catch(error => alert(error.message));
   };
@@ -59,6 +64,7 @@ export default function LoginScreen({ navigation }) {
 
       <View style={styles.buttonSection}>
         <TouchableOpacity
+          onPress={handleSignin}
           style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>

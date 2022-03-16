@@ -1,36 +1,119 @@
+import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { signOut, updateProfile } from 'firebase/auth';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useState, useEffect } from 'react';
 import { Button, FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigation } from '@react-navigation/native';
 
 import { update } from '../farmerSlice';
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import { auth } from '../storage/firebase';
 
 export default function FarmerProfileScreen({ navigation, route }) {
-  const farmer = useSelector((state) => state.farmer)
-    .filter((farmer) => farmer.Username == route.params.farmer)[0];
-  const [text, setText] = useState(farmer);
-  const comments = useSelector((state) => state.comment)
-    .filter(comment => comment.Username == farmer.Username);
+  const user = auth.currentUser;
+  const [farmer, setFarmer] = useState({
+    Name: '',
+    Image: { uri: '' },
+    Username: '',
+    Location: '', 
+    Favorites: '',
+    Email: user.providerData[0].email,
+  });
+  const [comments, setComments] = useState([]);
   const dispatch = useDispatch();
+
+  const stateFarmers = useSelector((state) => state.farmer);
+  const stateComments = useSelector((state) => state.comment);
+  useEffect( () => {
+    if (!route.params.farmer) {
+      return;
+    }
+    const foundFarmer = stateFarmers.filter(
+      ({Username}) => Username == route.params.farmer);
+    if (foundFarmer.length > 0) {
+      setFarmer(foundFarmer[0]);
+    }
+    const foundComments = stateComments.filter(
+      ({Username}) => Username == foundFarmer.Username);
+    setComments(foundComments);
+  }, [stateFarmers, stateComments]);
+
+  const handleLogout = () => {
+    signOut(auth).then( r => {;
+      navigation.navigate("Login");
+    });
+  };
+
+  const onImagePress = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      quality: 1,
+    });
+    if (result.cancelled) {
+      return;
+    }
+
+    try {
+      const image = await fetch(result.uri);
+      const bytes = await image.blob();
+      const fileRef = ref(getStorage(), uuidv4());
+      await uploadBytesResumable(fileRef, bytes);
+      const farmerImageUrl = await getDownloadURL(fileRef);
+      setFarmer({
+        ...farmer,
+        Image: { uri: farmerImageUrl },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateDetails = async() => {
+    await updateProfile(user, {
+      displayName: farmer.Username
+    });
+    dispatch(update({
+      username: farmer.Username,
+      farmer: farmer}));
+  }
 
   return (
     <View style={styles.container}>
 
       <View style={styles.detailsContainer}>
-        <Image style={styles.image} source={farmer.Image} />
+        <View>
+          <Image style={styles.image} source={farmer.Image} />
+
+          <Button
+            onPress={onImagePress}
+            title="Pick a photo"
+          />
+        </View>
 
         <View style={styles.detailsContent}>
+          <View style={styles.detailInput}>
+            <Text>Username: </Text>
+            <TextInput
+              autoCapitalize='none'
+              placeholder="new username"
+              onChangeText={text => setFarmer({
+                ...farmer,
+                Username: text,
+              })}
+              style={styles.input}
+              defaultValue={farmer.Username}
+            />
+          </View>
+
           <View style={styles.detailInput}>
             <Text>Name: </Text>
             <TextInput
               placeholder="new name"
-              onChangeText={text => setText({
+              onChangeText={text => setFarmer({
+                ...farmer,
                 Name: text,
-                ...farmer
               })}
               style={styles.input}
               defaultValue={farmer.Name}
@@ -41,9 +124,9 @@ export default function FarmerProfileScreen({ navigation, route }) {
             <Text>Location: </Text>
             <TextInput
               placeholder="new location"
-              onChangeText={text => setText({
+              onChangeText={text => setFarmer({
+                ...farmer,
                 Location: text,
-                ...farmer
               })}
               style={styles.input}
               defaultValue={farmer.Location}
@@ -55,12 +138,13 @@ export default function FarmerProfileScreen({ navigation, route }) {
 
       <View style={styles.actionContainer}>
         <Button
-          onPress={() => { dispatch(update(farmer.Username, farmer)) }}
+          onPress={updateDetails}
           title="Update Details"
         />
         <TouchableOpacity
+          onPress={handleLogout}
           style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
 

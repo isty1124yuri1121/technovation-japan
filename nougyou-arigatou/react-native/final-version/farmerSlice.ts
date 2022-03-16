@@ -19,8 +19,9 @@ export const farmerSlice = createSlice({
       base('Table 1').create([
         {
           "fields": {
+            "Email": farmer.Email,
             "Name": farmer.Name,
-            "Favorites": farmer.Favorites.join(','),
+            "Favorites": farmer.Favorites,
             "Location": farmer.Location,
             "Username": farmer.Username,
             "Image": [
@@ -33,13 +34,31 @@ export const farmerSlice = createSlice({
         function(err, records) {
         });
     },
-    update: (state, username, farmer) => {
+    update: (state, content) => {
+      const { username, farmer } = content.payload;
       for (var i =0; i < state.length; ++i) {
         if (state[i].Username == username) {
           state[i] = {
-            ...farmer,
             ...state[i],
+            ...farmer,
           }
+          base('Table 1').update([
+            {
+              id: state[i].id,
+              fields: {
+                Name: state[i].Name,
+                Favorites: state[i].Favorites,
+                Location: state[i].Location,
+                Username: state[i].Username,
+                Image: state[i].Image.uri,
+              }
+            }
+          ], function(err, records) {
+            if (err) {
+              console.error(err);
+              return;
+            }
+          });
         }
       }
     },
