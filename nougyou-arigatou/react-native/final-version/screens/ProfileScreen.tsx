@@ -19,21 +19,30 @@ export default function ProfileScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
+      <View style={styles.detailsContainer}>
         <Image style={styles.image} source={farmer.Image} />
-        <View style={styles.column}>
-          <View style={styles.row}>
+        <View style={styles.detailsContent}>
+
+          <View>
             <Text>Name: </Text>
-            <Text>{farmer.Name}</Text>
+            <Text style={styles.detailItem}>{farmer.Name}</Text>
           </View>
-          <View style={styles.row}>
+
+          <View>
             <Text>Location: </Text>
-            <Text>{farmer.Location}</Text>
+            <Text style={styles.detailItem}>{farmer.Location}</Text>
+          </View>
+
+          <View>
+            <Text>Favorites: </Text>
+            <Text style={styles.detailItem}>{farmer.Favorites}</Text>
           </View>
         </View>
       </View>
-      <View style={styles.row}>
+
+      <View style={styles.submitContainer}>
         <TextInput
+          style={styles.commentInput}
           placeholder="Add a comment"
           onChangeText={text => setText(text)}
           defaultValue={text}
@@ -48,16 +57,17 @@ export default function ProfileScreen({ navigation, route }) {
         />
       </View>
 
-      <Text>Comments:</Text>
-      <FlatList
-          data={comments}
-          keyExtractor={item => item.Key}
-          renderItem={({item}) => (
-        <View>
-          <Text>{item.Content}</Text>
-        </View>
-          )}
-        />
+      <View style={styles.commentContainer}>
+        <FlatList
+            data={comments}
+            keyExtractor={item => item.Key}
+            renderItem={({item}) => (
+          <View>
+            <Text>{item.Content}</Text>
+          </View>
+            )}
+          />
+      </View>
 
      </View>
   );
@@ -65,29 +75,52 @@ export default function ProfileScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 4,
+    justifyContent: 'flex-start',
+    padding: 8,
+  },
+  detailsContainer: {
+    width: '100%',
+    flexDirection: 'row',
+  },
+  detailsContent: {
+    paddingLeft: 4,
+    width: '50%',
+  },
+  detailItem: {
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+    borderWidth: 2,
   },
   image: {
     padding: 10,
-    height: 300,
-    width: 300,
+    height: 150,
+    width: 150,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  row: {
+  submitContainer: {
+    marginTop: 8,
+    width: '100%',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+  commentInput: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+    borderWidth: 2,
+  },
+  commentContainer: {
+    marginTop: 8,
+    width: '100%',
+    height: '60%',
+  }
 });
