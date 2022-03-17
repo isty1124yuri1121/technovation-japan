@@ -11,7 +11,6 @@ import { ColorSchemeName } from 'react-native';
 import ThemeContext from '../ThemeContext';
 import InitialScreen from '../screens/InitialScreen';
 import LoginScreen from '../screens/LoginScreen';
-import NewFarmerScreen from '../screens/NewFarmerScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FarmerProfileScreen from '../screens/FarmerProfileScreen';
@@ -50,10 +49,6 @@ function RootNavigator() {
         name="Login"
         component={LoginScreen}
         options={{ headerShown: true, title: 'Login' }} />
-      <Stack.Screen
-        name="New Farmer"
-        component={NewFarmerScreen}
-        options={{ headerShown: true, title: 'Signup' }} />
       <Stack.Screen
         name="Root"
         component={FarmerListScreen}
