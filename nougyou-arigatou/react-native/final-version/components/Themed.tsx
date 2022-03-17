@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 
-import ThemeContext from '../ThemeContext';
+import ThemeContext from '../theme/ThemeContext';
 
 export type TextProps = DefaultText['props'];
 export type ViewProps = DefaultView['props'];

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Button } from 'react-native';
 
 import { View } from '../components/Themed';
+import { TextButton } from '../components/ui/TextButton';
 
 export default function InitialScreen({ navigation }) {
   return (
     <View>
-      <Button
+      <TextButton
         onPress={() => navigation.navigate("Login")}
         title="Farmer"
       />
-      <Button
+      <TextButton
         onPress={() => navigation.navigate("Root")}
         title="Consumer"
       />

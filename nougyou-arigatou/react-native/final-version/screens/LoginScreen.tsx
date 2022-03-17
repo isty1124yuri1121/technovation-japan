@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth } from '../storage/firebase';
 import { Text, View } from '../components/Themed';
+import { Button } from '../components/ui/Button';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -58,19 +59,18 @@ export default function LoginScreen({ navigation }) {
       </View>
 
       <View style={styles.buttonSection}>
-        <TouchableOpacity
+        <Button 
           onPress={handleSignin}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+          style={styles.button}
+          label="Login"
+        />
 
-        <TouchableOpacity
+        <Button 
+          outline
           onPress={handleSignup}
-          style={[styles.button, styles.buttonOutline]}>
-          <Text style={[styles.buttonText, styles.buttonOutlineText]}>
-            Register
-          </Text>
-        </TouchableOpacity>
+          style={styles.button}
+          label="Register"
+        />
       </View>
     </KeyboardAvoidingView>
   );
@@ -103,25 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 35,
   },
   button: {
-    backgroundColor: '#0782f9',
-    color: '#000',
     width: '100%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
     marginBottom: 5,
   },
-  buttonOutline: {
-    backgroundColor: '#fff',
-    borderColor: '#0782f9',
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: '#0782f9',
-  }
 });

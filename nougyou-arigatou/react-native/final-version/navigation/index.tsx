@@ -7,15 +7,15 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useContext } from 'react';
 
-import ThemeContext from '../ThemeContext';
+import LinkingConfiguration from './LinkingConfiguration';
 import InitialScreen from '../screens/InitialScreen';
 import LoginScreen from '../screens/LoginScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FarmerProfileScreen from '../screens/FarmerProfileScreen';
 import FarmerListScreen from '../screens/FarmerListScreen';
+import ThemeContext from '../theme/ThemeContext';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({}) {
   const theme = useContext(ThemeContext);

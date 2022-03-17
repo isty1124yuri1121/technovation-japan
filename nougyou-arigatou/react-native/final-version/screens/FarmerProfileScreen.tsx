@@ -3,11 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { signOut, updateProfile } from 'firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
-import { Button, FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Text, View } from '../components/Themed';
+import { Button } from '../components/ui/Button';
+import { TextButton } from '../components/ui/TextButton';
 import { append, update } from '../storage/farmerSlice';
 import { auth } from '../storage/firebase';
 
@@ -95,7 +97,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
             ? <Image style={styles.image} source={farmer.Image} />
             : <View style={styles.image} />
           }
-          <Button
+          <TextButton
             onPress={onImagePress}
             title="Pick a photo"
           />
@@ -159,15 +161,15 @@ export default function FarmerProfileScreen({ navigation, route }) {
       </View>
 
       <View style={styles.actionContainer}>
-        <Button
+        <TextButton
           onPress={updateDetails}
           title={isNewFarmer ? "Save Details" : "Update Details"}
         />
-        <TouchableOpacity
+        <Button
           onPress={handleLogout}
-          style={styles.button}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+          style={styles.button}
+          label="Logout"
+        />
       </View>
 
       <View style={styles.commentsContainer}>
@@ -234,17 +236,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   button: {
-    backgroundColor: '#0782f9',
-    color: '#000',
     width: '50%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
     margin: 8,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
   },
 });

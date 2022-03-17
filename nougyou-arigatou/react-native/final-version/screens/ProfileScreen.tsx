@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, FlatList, Image, Platform, StyleSheet, TextInput } from 'react-native';
+import { FlatList, Image, Platform, StyleSheet, TextInput } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 
 import { append } from '../storage/commentSlice';
 import EditScreenInfo from '../components/EditScreenInfo';
+import { TextButton } from '../components/ui/TextButton';
 import { Text, View } from '../components/Themed';
 
 export default function ProfileScreen({ navigation, route }) {
@@ -47,7 +48,7 @@ export default function ProfileScreen({ navigation, route }) {
           onChangeText={text => setText(text)}
           defaultValue={text}
         />
-        <Button
+        <TextButton
           onPress={() => { dispatch(append({
             Username: farmer.Username,
             Content: text,
