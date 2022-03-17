@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import Images from '../assets/Images';
 import base from './Datastore';
-import Images from './assets/Images';
 import commentReducer from './commentSlice';
 import { init as commentInit } from './commentSlice';
 import farmerReducer from './farmerSlice';

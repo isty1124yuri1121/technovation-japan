@@ -6,7 +6,6 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useContext } from 'react';
-import { ColorSchemeName } from 'react-native';
 
 import ThemeContext from '../ThemeContext';
 import InitialScreen from '../screens/InitialScreen';
@@ -18,7 +17,7 @@ import FarmerListScreen from '../screens/FarmerListScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation({}) {
   const theme = useContext(ThemeContext);
   return (
     <NavigationContainer

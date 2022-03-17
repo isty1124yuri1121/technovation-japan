@@ -3,17 +3,15 @@ import React from 'react';
 import { Provider }  from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { app } from './storage/firebase';
-import { theme } from './theme';
-import ThemeContext from './ThemeContext';
-import store from "./Store";
 import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import { app } from './storage/firebase';
+import store from "./storage/Store";
+import { theme } from './theme/colors';
+import ThemeContext from './theme/ThemeContext';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
     return null;
@@ -22,7 +20,7 @@ export default function App() {
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
+          <Navigation />
           <StatusBar />
         </SafeAreaProvider>
       </ThemeContext.Provider>

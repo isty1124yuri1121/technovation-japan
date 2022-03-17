@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store'
 
 import base from './Datastore';
-import type { Comment } from './types';
+import type { Comment } from '../types';
 
 
 const initialState: Array<Comment> = [];

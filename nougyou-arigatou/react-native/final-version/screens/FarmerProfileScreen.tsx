@@ -7,8 +7,8 @@ import { Button, FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpac
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import { append, update } from '../farmerSlice';
 import { Text, View } from '../components/Themed';
+import { append, update } from '../storage/farmerSlice';
 import { auth } from '../storage/firebase';
 
 export default function FarmerProfileScreen({ navigation, route }) {

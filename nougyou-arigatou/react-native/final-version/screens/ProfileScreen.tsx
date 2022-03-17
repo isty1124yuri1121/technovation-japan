@@ -5,7 +5,7 @@ import { Button, FlatList, Image, Platform, StyleSheet, TextInput } from 'react-
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigation } from '@react-navigation/native';
 
-import { append } from '../commentSlice';
+import { append } from '../storage/commentSlice';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 

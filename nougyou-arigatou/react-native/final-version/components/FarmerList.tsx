@@ -4,14 +4,13 @@ import { useSelector } from 'react-redux';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import Images from '../assets/Images';
-import { Farmer } from '../types';
-import Colors from '../constants/Colors';
 import FarmerListItem from './FarmerListItem';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
+import Images from '../assets/Images';
+import { Farmer } from '../types';
 
-export default function FarmerList({ }: { }) {
+export default function FarmerList({ }) {
   const farmers = useSelector((state) => state.farmer);
   const navigation = useNavigation();
 
@@ -23,7 +22,8 @@ export default function FarmerList({ }: { }) {
           keyExtractor={(item) => item.Name}
           renderItem={({item}) => (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Profile", { farmer: item.Username, name: item.Name })}>
+              onPress={() => navigation.navigate(
+                "Profile", { farmer: item.Username, name: item.Name })}>
               <FarmerListItem farmer={item} />
             </TouchableOpacity>
           )}
