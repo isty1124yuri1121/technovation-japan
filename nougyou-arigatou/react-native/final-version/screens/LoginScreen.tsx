@@ -15,13 +15,8 @@ export default function LoginScreen({ navigation }) {
         return;
       }
 
-      if (!user.providerData[0].displayName) {
-        navigation.navigate("Farmer Profile");
-        return;
-      }
-      navigation.navigate(
-        "Farmer Profile",
-        { farmer: user.providerData[0].displayName });
+      const farmerName = user.providerData[0].displayName || '';
+      navigation.navigate("Farmer Profile", { farmer: farmerName });
     });
 
     return onUnmount;

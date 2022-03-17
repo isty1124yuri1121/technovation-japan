@@ -65,7 +65,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Farmer Profile"
         component={FarmerProfileScreen}
-        options={ ({ route }) => ({ headerShown: true, title: route.params.name }) } />
+        options={ ({ route }) => ({ headerShown: true, title: route.params.farmer }) } />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}

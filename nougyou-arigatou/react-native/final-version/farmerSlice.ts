@@ -19,19 +19,15 @@ export const farmerSlice = createSlice({
       base('Table 1').create([
         {
           "fields": {
-            "Email": farmer.Email,
             "Name": farmer.Name,
             "Favorites": farmer.Favorites,
             "Location": farmer.Location,
             "Username": farmer.Username,
-            "Image": [
-              {
-                "url": farmer.Image
-              }
-            ]
+            "Image": farmer.Image.uri,
           }
         }],
         function(err, records) {
+          console.error(err);
         });
     },
     update: (state, content) => {

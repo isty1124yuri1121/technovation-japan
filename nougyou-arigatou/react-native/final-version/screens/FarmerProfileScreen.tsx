@@ -7,7 +7,7 @@ import { Button, FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpac
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import { update } from '../farmerSlice';
+import { append, update } from '../farmerSlice';
 import { Text, View } from '../components/Themed';
 import { auth } from '../storage/firebase';
 
@@ -22,6 +22,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
     Email: user.providerData[0].email,
   });
   const [comments, setComments] = useState([]);
+  const [isNewFarmer, setIsNewFarmer] = useState(true);
   const dispatch = useDispatch();
 
   const stateFarmers = useSelector((state) => state.farmer);
@@ -33,6 +34,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
     const foundFarmer = stateFarmers.filter(
       ({Username}) => Username == route.params.farmer);
     if (foundFarmer.length > 0) {
+      setIsNewFarmer(false);
       setFarmer(foundFarmer[0]);
     }
     const foundComments = stateComments.filter(
@@ -74,9 +76,14 @@ export default function FarmerProfileScreen({ navigation, route }) {
     await updateProfile(user, {
       displayName: farmer.Username
     });
-    dispatch(update({
-      username: farmer.Username,
-      farmer: farmer}));
+    if (isNewFarmer) {
+      dispatch(append(farmer));
+      setIsNewFarmer(false);
+    } else {
+      dispatch(update({
+        username: farmer.Username,
+        farmer: farmer}));
+    }
   }
 
   return (
@@ -84,8 +91,10 @@ export default function FarmerProfileScreen({ navigation, route }) {
 
       <View style={styles.detailsContainer}>
         <View>
-          <Image style={styles.image} source={farmer.Image} />
-
+          {farmer.Image.uri !== ''
+            ? <Image style={styles.image} source={farmer.Image} />
+            : <View style={styles.image} />
+          }
           <Button
             onPress={onImagePress}
             title="Pick a photo"
@@ -133,13 +142,26 @@ export default function FarmerProfileScreen({ navigation, route }) {
             />
           </View>
 
+          <View style={styles.detailInput}>
+            <Text>Favorites: </Text>
+            <TextInput
+              placeholder="new favorites"
+              onChangeText={text => setFarmer({
+                ...farmer,
+                Favorites: text,
+              })}
+              style={styles.input}
+              defaultValue={farmer.Favorites}
+            />
+          </View>
+
         </View>
       </View>
 
       <View style={styles.actionContainer}>
         <Button
           onPress={updateDetails}
-          title="Update Details"
+          title={isNewFarmer ? "Save Details" : "Update Details"}
         />
         <TouchableOpacity
           onPress={handleLogout}
