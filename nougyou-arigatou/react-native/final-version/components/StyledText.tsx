@@ -1,3 +1,6 @@
+/**
+ * A shared component that display text with the `space-mono` font.
+ */
 import * as React from 'react';
 
 import { Text, TextProps } from './Themed';

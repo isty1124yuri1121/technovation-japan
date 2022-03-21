@@ -1,3 +1,7 @@
+/**
+ * We can skip this for the bootcamp.  This goes beyond the key lessons.
+ */
+
 import { FontAwesome } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';

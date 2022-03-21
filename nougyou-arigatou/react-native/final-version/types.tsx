@@ -1,6 +1,5 @@
 /**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
+ * We define types used throughout the application.
  */
 
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -13,20 +12,39 @@ declare global {
   }
 }
 
+/**
+ * A Typescript interface for a farmer object.
+ */
 export type Farmer = {
-  Name: string;
-  Image: string;
-  Location: string;
-  Favorites: Array<string>;
-  Username: string;
+  // The name of the farmer.
+  Name: string,
+  // The URL of the farmer's profile picture.
+  Image: string,
+  // The location of the farmer.
+  Location: string,
+  // The farmer's favorite products.
+  Favorites: string,
+  // The farmer's username.
+  Username: string,
 };
 
+/**
+ * A typescript interface for comments.
+ */
 export type Comment = {
-  key: string;
-  Farmer: string;
-  Content: string;
+  // A unique string value for the comment.
+  key: string,
+  // The farmer's Username.
+  Farmer: string,
+  // The comment text.
+  Content: string,
 };
 
+/**
+ * The types below are for doing navigation.
+ * Learn more about using TypeScript with React Navigation:
+ * https://reactnavigation.org/docs/typescript/
+ */
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;

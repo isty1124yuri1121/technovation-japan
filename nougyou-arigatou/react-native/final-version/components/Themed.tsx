@@ -1,3 +1,7 @@
+/**
+ * A collection of UI components that use one approach for using a shared
+ * theme.
+ */
 import React, { useContext } from 'react';
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 

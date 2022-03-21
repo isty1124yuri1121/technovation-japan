@@ -1,7 +1,8 @@
 /**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
+ * These components support navigating between different screens.
  *
+ * To learn more about React Navigation, refer to the "Fundamentals" guide:
+ * https://reactnavigation.org/docs/getting-started
  */
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,6 +19,11 @@ import ThemeContext from '../theme/ThemeContext';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 
 export default function Navigation({}) {
+  // Sharing styles and themes:
+  //   How do we make sure the app title bar uses the shared colors we want?
+  //   We can access the shared context to get the colors and then send them to
+  //   the NavigationContainer.  If the theme colors have the right names, this
+  //   will work just right.
   const theme = useContext(ThemeContext);
   return (
     <NavigationContainer
@@ -37,6 +43,12 @@ export default function Navigation({}) {
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+/**
+ * Switching between screens:
+ *   How do we switch between screens? First we have to list all possible
+ *   screens here, otherwise the navigator won't know what screen to go to
+ *   given a name.
+ */
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>

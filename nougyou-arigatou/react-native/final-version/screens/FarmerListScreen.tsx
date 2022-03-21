@@ -1,3 +1,6 @@
+/**
+ * A screen that displays all farmers
+ */
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 

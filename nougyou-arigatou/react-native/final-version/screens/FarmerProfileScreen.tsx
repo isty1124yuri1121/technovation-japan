@@ -1,3 +1,6 @@
+/**
+ * A profile screen for a logged in farmer.
+ */
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
 import { signOut, updateProfile } from 'firebase/auth';
@@ -14,7 +17,12 @@ import { append, update } from '../storage/farmerSlice';
 import { auth } from '../storage/firebase';
 
 export default function FarmerProfileScreen({ navigation, route }) {
+  // User Authentication:
+  //   How do we access the current logged in user?  What can firebase tell us
+  //   about them?
   const user = auth.currentUser;
+
+  // What state information do we need?
   const [farmer, setFarmer] = useState({
     Name: '',
     Image: { uri: '' },
@@ -44,13 +52,21 @@ export default function FarmerProfileScreen({ navigation, route }) {
     setComments(foundComments);
   }, [stateFarmers, stateComments]);
 
+  // User Authentication:
+  //   Sometimes a farmer wants to logout and pretend to be a consumer.  What
+  //   firebase method lets us do that? And what should we do when they logout?
   const handleLogout = () => {
     signOut(auth).then( r => {;
       navigation.navigate("Login");
     });
   };
 
+  // Using Cloud Data:
+  //   Saving images is actually pretty hard.  We've written this for you
+  //   because the correct approach depends on the firebase version.  This
+  //   works for 9.0.0.
   const onImagePress = async () => {
+    // How do we get a new profile photo?
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
@@ -74,6 +90,10 @@ export default function FarmerProfileScreen({ navigation, route }) {
     }
   };
 
+  // Sharing data across screens:
+  //   When a farmer updates their profile information, or a new farmer creates
+  //   their profile for the first time, what React Redux reducers should we
+  //   use?
   const updateDetails = async() => {
     await updateProfile(user, {
       displayName: farmer.Username

@@ -1,3 +1,6 @@
+/**
+ * A shared component for displaying a single farmer in a list.
+ */
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 
@@ -5,6 +8,9 @@ import { Farmer } from '../types';
 import { Text, View } from './Themed';
 import Images from '../assets/Images';
 
+/**
+ * Maps a food item to a fun emoji.
+ */
 const emojiMap = {
   'garlic': '🧄',
   'onion': '🧅',
@@ -13,6 +19,8 @@ const emojiMap = {
 };
 
 export default function FarmerListItem({ farmer }: { farmer: Farmer }) {
+  // Conver the farmer's favorite food items to emojis if we have an emoji
+  // available.
   const favorites = farmer.Favorites.split(',')
     .map( (fave) => emojiMap[fave] || fave )
     .join(' ');

@@ -1,3 +1,6 @@
+/**
+ * A screen for displaying a farmer's profile to a consumer.
+ */
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +15,9 @@ import { Text, View } from '../components/Themed';
 
 export default function ProfileScreen({ navigation, route }) {
   const [text, setText] = useState('');
+  // Sharing Data across screens.
+  //   How do we get the current farmer and their comments from the React Redux
+  //   state?
   const farmer = useSelector((state) => state.farmer)
     .filter((farmer) => farmer.Username == route.params.farmer)[0];
   const comments = useSelector((state) => state.comment)
@@ -41,6 +47,14 @@ export default function ProfileScreen({ navigation, route }) {
         </View>
       </View>
 
+      {/*
+        Making screens interactive:
+          How do we get a new comment from a consumer?
+          What should we do with the comment?
+
+        Sharing Data across screens:
+          When a consumer submits a comment, what reducer should we use?
+      */}
       <View style={styles.submitContainer}>
         <TextInput
           style={styles.commentInput}
@@ -58,6 +72,11 @@ export default function ProfileScreen({ navigation, route }) {
         />
       </View>
 
+      {/*
+        Making Interesting Screens:
+          When we have a list of comments, how do we put them all on the
+          screen? What React Native components can we use to make this easy?
+      */}
       <View style={styles.commentContainer}>
         <FlatList
             data={comments}
@@ -74,6 +93,9 @@ export default function ProfileScreen({ navigation, route }) {
   );
 }
 
+// Styling our app:
+//   - How do we style each of the UI components in the app?
+//   - Should we try using any global themes?
 const styles = StyleSheet.create({
   container: {
     height: '100%',
