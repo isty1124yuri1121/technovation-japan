@@ -33,7 +33,7 @@ export type Farmer = {
  */
 export type Comment = {
   // A unique string value for the comment.
-  key: string,
+  uuid: string,
   // The farmer's Username.
   Farmer: string,
   // The comment text.

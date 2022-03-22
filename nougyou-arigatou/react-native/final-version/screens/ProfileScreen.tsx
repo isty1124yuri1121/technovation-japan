@@ -66,7 +66,7 @@ export default function ProfileScreen({ navigation, route }) {
           onPress={() => { dispatch(append({
             Username: farmer.Username,
             Content: text,
-            key: uuidv4(),
+            uuid: uuidv4(),
           })) }}
           title="Submit"
         />
@@ -80,7 +80,7 @@ export default function ProfileScreen({ navigation, route }) {
       <View style={styles.commentContainer}>
         <FlatList
             data={comments}
-            keyExtractor={item => item.Key}
+            keyExtractor={item => item.uuid}
             renderItem={({item}) => (
           <View>
             <Text>{item.Content}</Text>

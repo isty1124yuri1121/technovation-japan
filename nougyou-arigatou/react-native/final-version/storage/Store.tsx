@@ -64,7 +64,7 @@ base('Comments').select({}).eachPage(
       return {
         Username: r.get('Farmer'),
         Content: r.get('Comment'),
-        Key: r.get('uuid'),
+        uuid: r.get('uuid'),
       };
     })
       .forEach(r => store.dispatch(commentInit(r)));

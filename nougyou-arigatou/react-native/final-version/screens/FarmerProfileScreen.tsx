@@ -195,7 +195,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
       <View style={styles.commentsContainer}>
         <Text>Comments:</Text>
         <FlatList
-            keyExtractor={item => item.Key}
+            keyExtractor={item => item.uuid}
             data={comments}
             renderItem={({item}) => (
           <View>

@@ -34,7 +34,7 @@ export const commentSlice = createSlice({
           "fields": {
             "Farmer": comment.Username,
             "Comment": comment.Content,
-            "uuid": comment.key
+            "uuid": comment.uuid
           }
         }],
         function(err, records) {

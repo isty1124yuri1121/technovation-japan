@@ -47,7 +47,9 @@ export const farmerSlice = createSlice({
           }
         }],
         function(err, records) {
-          console.error(err);
+          if (err) {
+            console.error(err);
+          }
         });
     },
     // Sometimes a farmer wants to change their profile information.
