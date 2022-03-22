@@ -31,31 +31,23 @@ export const farmerSlice = createSlice({
     //   listed in the full farmer list.  How do we add that so the farmer is
     //   listed in the farmer list screen?
     //
-    // Using Cloud Data:
+    // Using Cloud Data Exercise:
     //   How do we add the new farmers information to Airtable?
     append: (state, content) => {
       const farmer = content.payload;
       state.push(farmer);
       base('Table 1').create([
-        {
-          "fields": {
-            "Name": farmer.Name,
-            "Favorites": farmer.Favorites,
-            "Location": farmer.Location,
-            "Username": farmer.Username,
-            "Image": farmer.Image.uri,
-          }
-        }],
-        function(err, records) {
-          console.error(err);
-        });
+      ],
+      function(err, records) {
+        console.error(err);
+      });
     },
     // Sometimes a farmer wants to change their profile information.
     //
     // Sharing data across screens:
     //   How do we update a single farmer's profile information so it shows up
     //   correctly in the farmer list screen?
-    // Using Cloud Data:
+    // Using Cloud Data Exercise:
     //   How do we update Airtable for the farmer?
     update: (state, content) => {
       const { username, farmer } = content.payload;
@@ -66,16 +58,6 @@ export const farmerSlice = createSlice({
             ...farmer,
           }
           base('Table 1').update([
-            {
-              id: state[i].id,
-              fields: {
-                Name: state[i].Name,
-                Favorites: state[i].Favorites,
-                Location: state[i].Location,
-                Username: state[i].Username,
-                Image: state[i].Image.uri,
-              }
-            }
           ], function(err, records) {
             if (err) {
               console.error(err);

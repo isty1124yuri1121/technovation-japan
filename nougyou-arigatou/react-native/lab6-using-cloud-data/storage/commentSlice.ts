@@ -17,8 +17,6 @@ const initialState: Array<Comment> = [];
 //   Based on how we setup the Farmer slice, what initial state should we have
 //   for comments? 
 //   What reducers should we define?
-// Using Cloud Data:
-//   When do we need to send data to the cloud?  What reducer should do this?
 export const commentSlice = createSlice({
   name: 'comment',
   initialState,
@@ -29,16 +27,12 @@ export const commentSlice = createSlice({
     append: (state, content) => {
       const comment = content.payload;
       state.push(comment);
+      // Using Cloud Data Exercise:
+      //   When do we need to send data to the cloud?
       base('Comments').create([
-        {
-          "fields": {
-            "Farmer": comment.Username,
-            "Comment": comment.Content,
-            "uuid": comment.key
-          }
-        }],
-        function(err, records) {
-        });
+      ],
+      function(err, records) {
+      });
     },
   },
 });

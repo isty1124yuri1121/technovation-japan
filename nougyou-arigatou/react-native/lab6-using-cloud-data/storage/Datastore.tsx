@@ -3,11 +3,11 @@
  */
 import Airtable from 'airtable';
 
-// Using Cloud Data:
+// Using Cloud Data Lab Exercise:
 //   Like firebase, we have to tell Airtable our API values.
 //   What API values does Airtable need?
-//   How do we store these API values in a .env file?
-const table =  new Airtable({apiKey : process.env.AIRTABLE_API_KEY})
-const base = table.base(process.env.AIRTABLE_BASE_ID);
+//   What .env variables should we use?
+const table =  new Airtable({apiKey : ''})
+const base = table.base('');
 
 export default base;

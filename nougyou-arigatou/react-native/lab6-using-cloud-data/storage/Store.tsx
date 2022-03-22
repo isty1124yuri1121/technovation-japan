@@ -36,21 +36,13 @@ const store = configureStore({
 //   How do we read from Airtable and how do we share it with our React Redux
 //   state?
 
-// Using Cloud Data exercise:
+// Using Cloud Data Exercise:
 //   Read data about each farmer and store it in the React Redux farmer state.
+//   
+//   You can use sample code from Airtable's API page.
 base('Table 1').select({}).eachPage(
   function page(records, fetchNextPage) {
-    records.map(r => {
-      return {
-        id: r.id,
-        Name: r.get('Name'),
-        Image: {uri: r.get('Image')},
-        Username: r.get('Username'),
-        Location: r.get('Location'),
-        Favorites: r.get('Favorites'),
-      };
-    })
-      .forEach(r => store.dispatch(farmerInit(r)));
+    console.log(records);
     fetchNextPage();
   },
   function done(err) {
@@ -60,14 +52,7 @@ base('Table 1').select({}).eachPage(
 //   Read data about each comment and store it in the React Redux comment state.
 base('Comments').select({}).eachPage(
   function page(records, fetchNextPage) {
-    records.map(r => {
-      return {
-        Username: r.get('Farmer'),
-        Content: r.get('Comment'),
-        Key: r.get('uuid'),
-      };
-    })
-      .forEach(r => store.dispatch(commentInit(r)));
+    console.log(records);
     fetchNextPage();
   },
   function done(err) {
