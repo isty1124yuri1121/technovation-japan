@@ -7,7 +7,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../app/store'
 
-import base from './Datastore';
 import type { Comment } from '../types';
 
 
@@ -21,18 +20,9 @@ export const commentSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
-    init: (state, comment) => {
-      state.push(comment.payload);
-    },
     append: (state, content) => {
       const comment = content.payload;
       state.push(comment);
-      // Using Cloud Data Exercise:
-      //   When do we need to send data to the cloud?
-      base('Comments').create([
-      ],
-      function(err, records) {
-      });
     },
   },
 });

@@ -22,12 +22,12 @@ export default function App() {
     return null;
   }
   return (
-    {/*
+    /*
     Data Sharing Between Screens:
       How do we share data between screens? React uses an app level Provider
       to provide access to shared objects.  Here, we provide access to a
       React Redux data store.
-    */}
+    */
     <Provider store={store}>
       {/*
       Sharing styles and themes:

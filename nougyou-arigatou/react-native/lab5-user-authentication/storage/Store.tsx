@@ -5,7 +5,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import Images from '../assets/Images';
-import base from './Datastore';
 import commentReducer from './commentSlice';
 import { init as commentInit } from './commentSlice';
 import farmerReducer from './farmerSlice';
@@ -15,8 +14,45 @@ import { init as farmerInit } from './farmerSlice';
 //   React Redux requires initial data when starting.  What are good initial
 //   values when the app is first turned on?
 const preloadedState = {
-  farmer: [],
-  comment: []
+  farmer: [
+    {
+      Name: 'Yuichiro',
+      Favorites: 'Spinach, Nuts',
+      Location: 'Nagano',
+      Username: 'yusano',
+      Image: Images.Farmer1
+    },{
+      Name: 'Yuki Sano',
+      Favorites: 'Spinach, Nuts',
+      Location: 'Niigata',
+      Username: 'yukino',
+      Image: Images.Farmer2
+    },{
+      Name: 'Hitomi',
+      Favorites: 'Onions, Garlic',
+      Location: 'Yamagata',
+      Username: 'hitomi',
+      Image: Images.Farmer3
+    }
+  ],
+  comment: [{
+      key: '001',
+      Farmer: 'yusano',
+      Content: 'Best fried spinach'
+    },{
+      key: '002',
+      Farmer: 'hitomi',
+      Content: 'Try the deep fried garlic'
+    },{
+      key: '003',
+      Farmer: 'yukino',
+      Content: 'Best farming jokes in town'
+    },{
+      key: '004',
+      Farmer: 'yukino',
+      Content: 'Her packaging is just so cute'
+    }
+  ]
 };
 
 // Sharing data between screens:
@@ -29,34 +65,6 @@ const store = configureStore({
   },
   preloadedState
 });
-
-//   We want to store Farmer profile data and user comments in Airtable.  When
-//   the app first turns on, we want to read all that data and share it with
-//   all the screens.
-//   How do we read from Airtable and how do we share it with our React Redux
-//   state?
-
-// Using Cloud Data Exercise:
-//   Read data about each farmer and store it in the React Redux farmer state.
-//   
-//   You can use sample code from Airtable's API page.
-base('Table 1').select({}).eachPage(
-  function page(records, fetchNextPage) {
-    console.log(records);
-    fetchNextPage();
-  },
-  function done(err) {
-});
-
-// Using Cloud Data exercise:
-//   Read data about each comment and store it in the React Redux comment state.
-base('Comments').select({}).eachPage(
-  function page(records, fetchNextPage) {
-    console.log(records);
-    fetchNextPage();
-  },
-  function done(err) {
-  });
 
 // Sharing data between screens:
 //   We have to export both the store object and some other objects for React

@@ -32,7 +32,7 @@ export default function LoginScreen({ navigation }) {
   useEffect(() => {
     // User Authentication Exercise:
     //  What firebase method tells us if the user is already logged in?
-    const onUnmount = auth.someMethod(user => {
+    const onUnmount = null;/*auth.someMethod(user => {
       if (!user) {
         return;
       }
@@ -42,6 +42,7 @@ export default function LoginScreen({ navigation }) {
       const farmerName = user.providerData[0].displayName || '';
       navigation.navigate("Farmer Profile", { farmer: farmerName });
     });
+    */
 
     return onUnmount;
   });
