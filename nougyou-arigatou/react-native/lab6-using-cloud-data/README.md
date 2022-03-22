@@ -7,11 +7,21 @@ already setup all prior steps.
 
 ### Register on Airtable and copy our demo base
 
+1. Copy our [Farmer Table](https://airtable.com/shrhC1iN5AqDoIMBO).
+1. Copy our [Comments Table](https://airtable.com/shrhC1iN5AqDoIMBO).
+
 ### Update your .env with Airtable API values
+
+Update the `.env` file with Airtable's API Key and the Base ID.
 
 ### Read from Airtable
 
+Finish the exercise in `storage/Store.tsx`
+
 ### Write data to Airtable
+
+1. Finish the exercises in `storage/farmerSlice.tsx`
+1. Finish the exercises in `storage/commentSlice.tsx`
 
 # Prior Setup
 
