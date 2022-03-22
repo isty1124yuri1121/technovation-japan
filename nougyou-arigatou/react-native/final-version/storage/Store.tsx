@@ -62,10 +62,10 @@ base('Comments').select({}).eachPage(
   function page(records, fetchNextPage) {
     records.map(r => {
       return {
-      Username: r.get('Farmer'),
-      Content: r.get('Comment'),
-      Key: r.get('uuid'),
-    };
+        Username: r.get('Farmer'),
+        Content: r.get('Comment'),
+        Key: r.get('uuid'),
+      };
     })
       .forEach(r => store.dispatch(commentInit(r)));
     fetchNextPage();

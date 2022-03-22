@@ -65,7 +65,7 @@ This demo application covers all 6 of these lesson points.  You can also find
 separate versions that provide a starting point for learning and exploring each
 lesson point.
 
-### Creating a new screen
+### Creating a New Screen
 
 Every app needs at least two screens.  The first step in learning any framework
 is learning how to make a new screen or view, put some interesting content on
@@ -75,7 +75,7 @@ existing view.
 We use React Native's default solutions for creating and navigating between
 screens.
 
-### Handling user interactions
+### Making Screens Interactive
 
 Screens are only as interesting as their interactions.  At a minimum, screens
 need to support navigation between screens.  But ultimately screens need to
@@ -83,7 +83,7 @@ handle user input and more complex gestures.
 
 We use React Native's default solutions for managing user interactions.
 
-### Sharing data between screens
+### Sharing Data Between Screens
 
 Once there's more screens and ways to interact with those screens, data will
 often need to be shared between views.  One classic example: a user creates a
@@ -94,7 +94,7 @@ screen.
 We use [React Redux](https://react-redux.js.org/) for sharing data between
 screens.
 
-### Themes and Component Styling
+### Styling Our App
 
 When you're building an app, you're not only writing some code and making a
 functional app.  You also need to communicate a brand image and fit a design
@@ -117,7 +117,7 @@ easier for future applications.
 We use [Firebase Authentication](https://firebase.google.com/docs/auth) for a
 simple Email and Password authentication flow.
 
-### Working with Cloud Storage
+### Using Cloud Data
 
 Storing data locally on the app works for a lot of use cases.  But with signed
 in users wanting to interact, cloud data storage solutions solve a lot of

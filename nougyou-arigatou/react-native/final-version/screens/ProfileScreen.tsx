@@ -73,7 +73,7 @@ export default function ProfileScreen({ navigation, route }) {
       </View>
 
       {/*
-        Making Interesting Screens:
+        Making Interactive Screens:
           When we have a list of comments, how do we put them all on the
           screen? What React Native components can we use to make this easy?
       */}
@@ -93,7 +93,7 @@ export default function ProfileScreen({ navigation, route }) {
   );
 }
 
-// Styling our app:
+// Styling Our App:
 //   - How do we style each of the UI components in the app?
 //   - Should we try using any global themes?
 const styles = StyleSheet.create({
