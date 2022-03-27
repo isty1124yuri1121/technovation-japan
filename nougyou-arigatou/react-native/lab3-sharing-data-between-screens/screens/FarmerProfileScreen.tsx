@@ -3,8 +3,6 @@
  */
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
-import { signOut, updateProfile } from 'firebase/auth';
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState, useEffect } from 'react';
 import { FlatList, Image, Platform, StyleSheet, TextInput, TouchableOpacity  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,10 +15,6 @@ import { append, update } from '../storage/farmerSlice';
 import { auth } from '../storage/firebase';
 
 export default function FarmerProfileScreen({ navigation, route }) {
-  // User Authentication Exercise:
-  //   How do we access the current logged in user?  What can firebase tell us
-  //   about them?
-
   // What state information do we need?
   const [farmer, setFarmer] = useState({
     Name: '',
@@ -28,7 +22,7 @@ export default function FarmerProfileScreen({ navigation, route }) {
     Username: '',
     Location: '', 
     Favorites: '',
-    Email: user.providerData[0].email,
+    Email: '',
   });
   const [comments, setComments] = useState([]);
   const [isNewFarmer, setIsNewFarmer] = useState(true);
@@ -51,57 +45,12 @@ export default function FarmerProfileScreen({ navigation, route }) {
     setComments(foundComments);
   }, [stateFarmers, stateComments]);
 
-  // User Authentication Exercise:
-  //   Sometimes a farmer wants to logout and pretend to be a consumer.  What
-  //   firebase method lets us do that? And what should we do when they logout?
-  const handleLogout = () => {
-  };
-
-  // Using Cloud Data:
-  //   Saving images is actually pretty hard.  We've written this for you
-  //   because the correct approach depends on the firebase version.  This
-  //   works for 9.0.0.
-  const onImagePress = async () => {
-    // How do we get a new profile photo?
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 1,
-    });
-    if (result.cancelled) {
-      return;
-    }
-
-    try {
-      const image = await fetch(result.uri);
-      const bytes = await image.blob();
-      const fileRef = ref(getStorage(), uuidv4());
-      await uploadBytesResumable(fileRef, bytes);
-      const farmerImageUrl = await getDownloadURL(fileRef);
-      setFarmer({
-        ...farmer,
-        Image: { uri: farmerImageUrl },
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Sharing data across screens:
+  // Sharing Data Between Screens Exercise:
   //   When a farmer updates their profile information, or a new farmer creates
   //   their profile for the first time, what React Redux reducers should we
   //   use?
   const updateDetails = async() => {
-    await updateProfile(user, {
-      displayName: farmer.Username
-    });
-    if (isNewFarmer) {
-      dispatch(append(farmer));
-      setIsNewFarmer(false);
-    } else {
-      dispatch(update({
-        username: farmer.Username,
-        farmer: farmer}));
-    }
+    console.log(farmer);
   }
 
   return (
@@ -113,10 +62,6 @@ export default function FarmerProfileScreen({ navigation, route }) {
             ? <Image style={styles.image} source={farmer.Image} />
             : <View style={styles.image} />
           }
-          <TextButton
-            onPress={onImagePress}
-            title="Pick a photo"
-          />
         </View>
 
         <View style={styles.detailsContent}>
@@ -181,17 +126,12 @@ export default function FarmerProfileScreen({ navigation, route }) {
           onPress={updateDetails}
           title={isNewFarmer ? "Save Details" : "Update Details"}
         />
-        <Button
-          onPress={handleLogout}
-          style={styles.button}
-          label="Logout"
-        />
       </View>
 
       <View style={styles.commentsContainer}>
         <Text>Comments:</Text>
         <FlatList
-            keyExtractor={item => item.Key}
+            keyExtractor={item => item.key}
             data={comments}
             renderItem={({item}) => (
           <View>

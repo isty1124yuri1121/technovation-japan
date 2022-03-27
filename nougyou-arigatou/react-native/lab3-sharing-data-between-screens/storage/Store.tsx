@@ -15,42 +15,29 @@ import { init as farmerInit } from './farmerSlice';
 //   values when the app is first turned on?
 const preloadedState = {
   farmer: [
+    // Sharing data between screens Exercise:
+    //   We define just one sample farmer.  Can you add more?  You can use
+    //   other images stored in /asssets/images.tsx.
     {
-      Name: 'Yuichiro',
-      Favorites: 'Spinach, Nuts',
-      Location: 'Nagano',
-      Username: 'yusano',
-      Image: Images.Farmer1
-    },{
       Name: 'Yuki Sano',
       Favorites: 'Spinach, Nuts',
       Location: 'Niigata',
       Username: 'yukino',
       Image: Images.Farmer2
-    },{
-      Name: 'Hitomi',
-      Favorites: 'Onions, Garlic',
-      Location: 'Yamagata',
-      Username: 'hitomi',
-      Image: Images.Farmer3
     }
   ],
-  comment: [{
-      key: '001',
-      Farmer: 'yusano',
-      Content: 'Best fried spinach'
-    },{
-      key: '002',
-      Farmer: 'hitomi',
-      Content: 'Try the deep fried garlic'
-    },{
+  comment: [
+    // Sharing data between screens Exercise:
+    //   We define just two comments for only one farmer.  Can you add comments
+    //   for the farmers you've added?
+    {
       key: '003',
       Farmer: 'yukino',
       Content: 'Best farming jokes in town'
     },{
       key: '004',
       Farmer: 'yukino',
-      Content: 'Her packaging is just so cute'
+      Content: 'The packaging is just so cute'
     }
   ]
 };

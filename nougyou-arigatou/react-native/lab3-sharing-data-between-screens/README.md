@@ -1,23 +1,30 @@
-# Lab 4 - Styling Our App
+# Lab 3 - Sharing Data Between Screens
 
-This lab focuses on setting up User Authentication using Firebase.
+This lab focuses on setting up connecting data between screens.
 
 ## Instructions
 
-### Deciding on App Colors
+### Creating sample data
 
-Open `theme.colors.ts` and set some interesting colors for the app.
+When the app loads up, we need to show some fake data.  Open
+`storage/Store.tsx` and add some sample farmers and some sample comments.  Copy
+and change the farmers and comments we've already added.
 
-### Setting up Navigation Colors
+### Fetching Comments
 
-Open `navigation/index.tsx` and use our shared colors for the navigation bar.
+Open `screens/ProfileScreen.tsx` and find the first exercise that reads all the comments for the farmer we're looking at.
 
-### Setting up UI Components
+### Saving Comments
 
-1.  Open `components/Themed.tsx` and use our shared colors for the components.
-1.  Open `components/ui/Button.tsx` and use our shared colors for the components.
-1.  Open `components/ui/TextButton.tsx` and use our shared colors for the
-    components.
+In `screens/ProfileScreen.tsx` find the second exercise near the `Submit`
+button.  Update that code to save the new comment instead of printing it to the
+console.
+
+### Changing a Farmers Details
+
+Open `screens/FarmerProfileScreen.tsx`.  Find the exercise near the
+`updateDetails` method.  Can you update save a farmers information to the React
+Redux store? This will look similar to how you saved a comment.
 
 # Prior Setup
 

@@ -15,13 +15,12 @@ import { Text, View } from '../components/Themed';
 
 export default function ProfileScreen({ navigation, route }) {
   const [text, setText] = useState('');
-  // Sharing Data across screens.
-  //   How do we get the current farmer and their comments from the React Redux
-  //   state?
   const farmer = useSelector((state) => state.farmer)
     .filter((farmer) => farmer.Username == route.params.farmer)[0];
-  const comments = useSelector((state) => state.comment)
-    .filter(comment => comment.Username == farmer.Username);
+  // Sharing Data Between Screens Exercise.
+  //   We've figured out which farmer to show for you.  Can you do the same to
+  //   get all comments for that farmer?
+  const comments = [];
   const dispatch = useDispatch();
 
   return (
@@ -51,9 +50,6 @@ export default function ProfileScreen({ navigation, route }) {
         Making screens interactive:
           How do we get a new comment from a consumer?
           What should we do with the comment?
-
-        Sharing Data across screens:
-          When a consumer submits a comment, what reducer should we use?
       */}
       <View style={styles.submitContainer}>
         <TextInput
@@ -63,11 +59,17 @@ export default function ProfileScreen({ navigation, route }) {
           defaultValue={text}
         />
         <TextButton
-          onPress={() => { dispatch(append({
-            Username: farmer.Username,
-            Content: text,
-            key: uuidv4(),
-          })) }}
+          onPress={() => { 
+            // Sharing Data Between Screens Exercise.
+            //   When a user tries to save a comment, what do we do with it? 
+            //   What happens if you call dispatch(append(newComment))
+            const newComment = {
+              Username: farmer.Username,
+              Content: text,
+              key: uuidv4(),
+            };
+            console.log(newComment);
+          }}
           title="Submit"
         />
       </View>

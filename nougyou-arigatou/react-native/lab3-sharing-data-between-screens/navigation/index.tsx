@@ -20,11 +20,6 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 
 export default function Navigation({}) {
   const theme = useContext(ThemeContext);
-  // Styling Our App Exercise.
-  //   Right now we're hard coding navigation colors.  It will be hard to make
-  //   sure these match the colors we use in other components.  In the theme
-  //   object, we define a set of colors, how do we send those colors to the
-  //   Navigation Container?
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
@@ -59,10 +54,6 @@ function RootNavigator() {
         name="Initial"
         component={InitialScreen}
         options={{ headerShown: true, title: 'Who Are You?' }} />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: true, title: 'Login' }} />
       <Stack.Screen
         name="Root"
         component={FarmerListScreen}

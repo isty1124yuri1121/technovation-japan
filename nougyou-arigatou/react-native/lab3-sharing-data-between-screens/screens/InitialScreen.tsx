@@ -13,7 +13,8 @@ export default function InitialScreen({ navigation }) {
   return (
     <View>
       <TextButton
-        onPress={() => navigation.navigate("Login")}
+        onPress={() =>
+            navigation.navigate("Farmer Profile", { farmer: 'yukino' })}
         title="Farmer"
       />
       <TextButton
