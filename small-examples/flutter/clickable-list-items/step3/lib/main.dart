@@ -47,19 +47,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MyButton extends StatelessWidget {
+class MyButton extends StatefulWidget {
   final String text;
 
   MyButton({Key? key, required this.text}) : super(key: key);
 
   @override
+  State<MyButton> createState() => _MyButtonState();
+}
+
+class _MyButtonState extends State<MyButton> {
+  bool _isClicked = false;
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        setState(() {
+          _isClicked = !_isClicked;
+        });
+      },
       child: Container(
         height: 50,
         margin: EdgeInsets.all(2),
-        color: Colors.grey,
-        child: Text('${text}'),
+        color: _isClicked ? Colors.blue : Colors.grey,
+        child: Text('${widget.text}'),
       ),
     );
   }
