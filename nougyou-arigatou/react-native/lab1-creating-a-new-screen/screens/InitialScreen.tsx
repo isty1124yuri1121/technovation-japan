@@ -10,11 +10,16 @@ export default function InitialScreen({ navigation }) {
   // Creating a New Screen Exercise:
   //   When a user clicks the `Farmer` button, what screen should we go to?
   //   When a user clicks the `Consumer` button, what screen should we go to?
+  const farmerHandler = () => {
+    navigation.navigate("Farmer Profile", { farmer: 'yukino' });
+  };
+  const consumerHandler = () => {
+    console.log("To be figured out");
+  };
   return (
     <View>
       <TextButton
         onPress={() =>
-            navigation.navigate("Farmer Profile", { farmer: 'yukino' })}
         title="Farmer"
       />
       <TextButton
