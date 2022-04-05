@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:final_version/models/farmer.dart';
+import 'package:final_version/widgets/profile_detail.dart';
 
 class FarmerViewPage extends StatelessWidget {
   final Farmer farmer;
@@ -16,7 +17,42 @@ class FarmerViewPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('${farmer.name}'),
       ),
-      body: Text('${farmer.location}'),
+      body: Container(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Image(
+                    image: farmer.image,
+                    fit: BoxFit.cover,
+                    width: 150,
+                  ),
+                ),
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(left: 10),
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      children: [
+                        ProfileDetail(title: 'Name: ', content: farmer.name),
+                        ProfileDetail(
+                            title: 'Location: ', content: farmer.location),
+                        ProfileDetail(
+                            title: 'Favorites: ', content: farmer.favorites),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

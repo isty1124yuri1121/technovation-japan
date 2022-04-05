@@ -56,7 +56,11 @@ class FarmerListPage extends StatelessWidget {
               height: 50,
               margin: EdgeInsets.all(4),
               child: ListTile(
-                leading: Image(image: farmers[index].image),
+                leading: Image(
+                  image: farmers[index].image,
+                  fit: BoxFit.cover,
+                  width: 100,
+                ),
                 title: Text('${farmers[index].name}'),
                 subtitle: Text('${farmers[index].favorites}'),
                 trailing: Text('${farmers[index].location}'),
