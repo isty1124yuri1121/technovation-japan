@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "firebase-search-ver-8",
+    "slug": "firebase-search-ver-8",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
