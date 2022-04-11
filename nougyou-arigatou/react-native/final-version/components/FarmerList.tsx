@@ -36,7 +36,6 @@ export default function FarmerList({ }) {
         */}
         <FlatList
           data={farmers}
-          numColumns={2}
           keyExtractor={(item) => item.Name}
           renderItem={({item}) => (
             <TouchableOpacity
