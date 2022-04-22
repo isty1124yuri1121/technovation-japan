@@ -14,26 +14,40 @@ firebase.initializeApp(firebaseConfig);
 export default function App() {
   const [authors, setAuthors] = useState([]);
 
-  useEffect(() => {
+  // Our useEffect will make some await calls so it needs to be async.
+  useEffect(async () => {
     const storyId = "YUXL04hoRxTKSBgxPgRS";
     const db = firebase.firestore();
-    db.collection("stories")
+    // Get the list of stories we're following.
+    const followingResult = await db.collection("following")
       .doc(storyId)
-      .collection('authors')
-      .get()
-      .then(snapshot => {
-        const newAuthors = [];
-        snapshot.forEach(querySnapshot => {
-          const author = {
-            ...querySnapshot.data(),
-            id: querySnapshot.id
-          };
-          newAuthors.push(author);
+      .collection('userFollowing')
+      .get();
+
+    // Extract the list of story ids that we're following.
+    const followingIds = []
+    followingResult.forEach(following => {
+      followingIds.push(following.id);
+    });
+
+    // Extract the authors of the stories I follow.
+    const newAuthors = []
+    for await (const followingId of followingIds) {
+      // First, get each story I follow and the authors for that story.
+      const authorResults = await db.collection("stories")
+        .doc(followingId)
+        .collection('authors')
+        .get();
+      // Add the authors to my author list.
+      authorResults.forEach(author => {
+        newAuthors.push({
+          ...author.data(),
+          id: author.id,
         });
-        setAuthors(newAuthors);
-      }).catch(err => {
-        console.error(err)
       });
+    }
+    // Set the authors state variable when we're all done.
+    setAuthors(newAuthors);
   }, []);
 
   return (
