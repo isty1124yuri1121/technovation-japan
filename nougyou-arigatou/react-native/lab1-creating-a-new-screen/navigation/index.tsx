@@ -63,6 +63,10 @@ function RootNavigator() {
           name and title.
         */}
       <Stack.Screen
+        name="A"
+        component={InitialScreen}
+        options={{ headerShown: true, title: 'First_A?' }} />
+      <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: 'Oops!' }} />
