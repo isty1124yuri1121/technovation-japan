@@ -14,7 +14,10 @@ import LoginScreen from '../screens/LoginScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import FarmerProfileScreen from '../screens/FarmerProfileScreen';
+
 // Creating A New Screen Exercise:
+import screen_a from '../screens/screen_a';
+
 //   Import the screen component you made here.
 import ThemeContext from '../theme/ThemeContext';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
