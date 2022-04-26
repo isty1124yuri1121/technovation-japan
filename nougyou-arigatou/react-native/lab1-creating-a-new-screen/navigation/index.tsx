@@ -63,6 +63,10 @@ function RootNavigator() {
           name and title.
         */}
       <Stack.Screen
+        name="SCR_A"
+        component={screen_a}
+        options={{ headerShown: true, title: 'First_A?' }} />
+      <Stack.Screen
         name="A"
         component={InitialScreen}
         options={{ headerShown: true, title: 'First_A?' }} />
